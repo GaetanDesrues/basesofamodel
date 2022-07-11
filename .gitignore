@@ -2,5 +2,7 @@ venv/
 .idea/
 *.egg-info
 __pycache__
+*.log
 dist/
 build/
+/mecamodel/case_1/

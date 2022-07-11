@@ -17,7 +17,7 @@ class SOFAControl(Controller):
         super().__init__(**kw)
         self.root = root
         self.data = []
-        self.out = kw.pop("out")
+        self.out = kw.pop("out", None)
 
     def export(self):
         pass
@@ -61,24 +61,27 @@ class BaseScene:
         pass
 
 
+PLUGINS = {
+    "SofaImplicitOdeSolver",
+    "SofaExporter",
+    "SofaOpenglVisual",
+    "SofaDenseSolver",
+    "SofaGraphComponent",
+    "SofaSimpleFem",
+    "SofaDeformable",
+    "SofaEngine",
+    "SofaGeneralLoader",
+    "SofaMeshCollision",
+    "SofaPreconditioner",
+    "SofaBoundaryCondition",
+    "SofaConstraint",
+    "SofaMiscFem",
+    "SofaCaribou",
+}
+
+
 class BaseModel:
-    PLUGINS = {
-        "SofaImplicitOdeSolver",
-        "SofaExporter",
-        "SofaOpenglVisual",
-        "SofaDenseSolver",
-        "SofaGraphComponent",
-        "SofaSimpleFem",
-        "SofaDeformable",
-        "SofaEngine",
-        "SofaGeneralLoader",
-        "SofaMeshCollision",
-        "SofaPreconditioner",
-        "SofaBoundaryCondition",
-        "SofaConstraint",
-        "SofaMiscFem",
-        "SofaCaribou",
-    }
+    PLUGINS = PLUGINS
 
     def save_params(self):
         tf.dump_json(self.params.out.value / "params.json", self.params.to_dict())
