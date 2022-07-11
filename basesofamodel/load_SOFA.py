@@ -12,3 +12,5 @@ def load_SOFA():
     sys.path.insert(0, f"{sofa_build}/lib/python3/site-packages")
     os.environ["SOFA_ROOT"] = sofa_build
     os.environ["SOFAPYTHON3_ROOT"] = sofa_build
+
+    print(f"--> Found SOFA: {sofa_build!r}")

@@ -1,14 +1,17 @@
 import logging
-from typing import Type, Optional
 
 import treefiles as tf
+from Model3D import Analyser
 
-from basesofamodel.base_model import BaseModel, BaseScene
+from basesofamodel.base_model import BaseModel
 from mecamodel.main_scene import MecaScene
 
 
 class MecaModel(BaseModel):
-    pass
+    def plot(self):
+        an = Analyser(self.params.out.value)
+        an.get_features()
+        an.left.plot_raw()
 
 
 log = logging.getLogger(__name__)
@@ -29,3 +32,5 @@ if __name__ == "__main__":
     model = MecaModel(params, MecaScene)
     model.init_scene()
     model.run()
+
+    model.plot()
