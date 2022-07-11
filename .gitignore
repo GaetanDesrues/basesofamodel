@@ -5,4 +5,4 @@ __pycache__
 *.log
 dist/
 build/
-/mecamodel/case_1/
+/mecamodel/case_*

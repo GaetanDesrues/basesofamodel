@@ -107,7 +107,7 @@ class BaseModel:
             )
             self.params["out"] = tf.Param("out", tf.f(__file__, "out"))
 
-        self.out = tf.Tree(self.params["out"].value).dump()
+        self.out = tf.dump(self.params["out"].value)
         log.info(f"Creating SOFA simulation to file://{self.out.abs()}")
 
         self.set_data_path()  # add path related params
