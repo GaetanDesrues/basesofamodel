@@ -256,6 +256,9 @@ class MecaScene(BaseScene):
             name="linear-solver-coupling",
             template="GraphScattered",
             tags="tagContraction",
+            iterations=100,
+            tolerance=1e-5,
+            threshold=1e-5,
         )
         node.addObject(
             "MechanicalObject",
