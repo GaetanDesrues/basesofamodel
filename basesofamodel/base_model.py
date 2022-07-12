@@ -1,4 +1,6 @@
+import io
 import logging
+from datetime import datetime
 from typing import Type, Optional
 
 import treefiles as tf
@@ -76,7 +78,7 @@ PLUGINS = {
     "SofaBoundaryCondition",
     "SofaConstraint",
     "SofaMiscFem",
-    "SofaCaribou",
+    # "SofaCaribou",
 }
 
 
@@ -135,8 +137,9 @@ class BaseModel:
         pass
 
     @tf.timer
-    def run(self, gui: bool = False):
+    def run(self, gui: bool = False, std_to_file: bool = False):
         if gui:
+            self.init_scene()
             GUIManager.Init("")
             GUIManager.createGUI(self.root, __file__)
             GUIManager.SetDimension(900, 700)
@@ -148,8 +151,30 @@ class BaseModel:
             tf.removeIfExists(self.out.p / "runSofa.ini")
         else:
             log.info(f"Starting SOFA for {self.params.n.value} iterations")
-            for _ in range(self.params.n.value):
-                Simulation.animate(self.root, self.params.dt.value)
+
+            if std_to_file:
+                out = self.params.out / "Output_Python.stdout"
+                err = self.params.out / "Error_Python.stderr"
+
+                fo, fe = open(out, "w"), open(err, "w")
+                fob, feb = io.BytesIO(), io.BytesIO()
+                with tf.stdout_redirector(fob):
+                    with tf.stderr_redirector(feb):
+                        self.init_scene()
+                        print(f"Starting {self.params.n.value} iterations")
+                        for i in range(self.params.n.value):
+                            print(
+                                f"{datetime.now()}: Iterations {i+1}/{self.params.n.value}"
+                            )
+                            Simulation.animate(self.root, self.params.dt.value)
+                fo.write(fob.getvalue().decode("utf-8"))
+                fe.write(feb.getvalue().decode("utf-8"))
+                fo.close()
+                fe.close()
+            else:
+                self.init_scene()
+                for _ in range(self.params.n.value):
+                    Simulation.animate(self.root, self.params.dt.value)
 
 
 log = logging.getLogger(__name__)
