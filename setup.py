@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SofaModel",
-    version="0.1.001",
+    version="0.1.002",
     author="Gaëtan Desrues",
     author_email="gaetan.desrues@inria.fr",
     url="https://gitlab.inria.fr/gdesrues1/basesofamodel",
