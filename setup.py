@@ -4,15 +4,15 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="basesofamodel",
+    name="SofaModel",
     version="0.1.001",
-    # author="",
-    # author_email="",
-    # url="",
+    author="Gaëtan Desrues",
+    author_email="gaetan.desrues@inria.fr",
+    url="https://gitlab.inria.fr/gdesrues1/basesofamodel",
     description="Description",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),
+    packages=["SofaModel"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

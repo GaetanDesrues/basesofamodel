@@ -30,6 +30,6 @@ if __name__ == "__main__":
     # print(params.table())
 
     model = MecaModel(params, MecaScene)
-    model.run(std_to_file=True)
+    model.run(std_to_file=True, gui=True)
 
     # model.plot()
